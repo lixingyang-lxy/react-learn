@@ -6,7 +6,7 @@ import {
   Link
 } from "react-router-dom";
 
-import Move  from './components/Move'
+import Move from './components/Move'
 import Winner from './components/Winner'
 import Buy from './components/Buy'
 
@@ -17,30 +17,24 @@ function App() {
       <header className="App-header">
         卷动盘
       </header>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/move">Move</Link>
-          </li>
-          <li>
-            <Link to="/winner">Winner</Link>
-          </li>
-          <li>
-            <Link to="/buy">Buy</Link>
-          </li>
-        </ul>
-      </nav>
-      <Routes>
-        <Route path=":move" element={<Move />}>
-          <Move />
-        </Route>
-        <Route path=":winner" element={<Winner />}>
-          <Winner />
-        </Route>
-        <Route path=":buy" element={<Buy />}>
-          <Buy />
-        </Route>
-      </Routes>
+      <ul>
+        <li>
+          <Link to="/move">Move</Link>
+        </li>
+        <li>
+          <Link to="/winner">Winner</Link>
+        </li>
+        <li>
+          <Link to="/buy">Buy</Link>
+        </li>
+      </ul>
+      <Router>
+        <Routes>
+          <Route path=":move" element={<Move />}></Route>
+          <Route path=":winner" element={<Winner />}></Route>
+          <Route path=":buy" element={<Buy />}></Route>
+        </Routes>
+      </Router>
     </div>
   );
 }
