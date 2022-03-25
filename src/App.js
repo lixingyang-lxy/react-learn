@@ -9,93 +9,83 @@ import PersonalCenter from './views/PersonalCenter'
 import Todo from './views/Todo'
 
 // import { Route, BrowserRouter as Router, Routes, Link, useHistory, useLocation } from 'react-router-dom'
+// import { Route, BrowserRouter as Router, Routes, unstable_HistoryRouter as useHistory, useLocation } from 'react-router-dom'
 import { Route, BrowserRouter as Router, Routes, unstable_HistoryRouter as useHistory, useLocation } from 'react-router-dom'
-import { Badge, TabBar } from 'antd-mobile'
+import { NavBar, TabBar } from 'antd-mobile'
 import {
   AppOutline,
   MessageOutline,
-  MessageFill,
   UnorderedListOutline,
   UserOutline,
 } from 'antd-mobile-icons'
 
 import './App.css';
-function App() {
+
+const Bottom = () => {
   const history = useHistory()
   const location = useLocation()
   const { pathname } = location
+
+  const setRouteActive = (value) => {
+    history.push(value)
+  }
+
   const tabs = [
     {
-      key: 'Home',
+      key: '/home',
       title: '首页',
       icon: <AppOutline />,
-      badge: Badge.dot,
     },
     {
-      key: 'Todo',
+      key: '/todo',
       title: '我的待办',
       icon: <UnorderedListOutline />,
-      badge: '5',
     },
     {
-      key: 'Message',
+      key: '/message',
       title: '我的消息',
-      icon: (active) =>
-        active ? <MessageFill /> : <MessageOutline />,
-      badge: '99+',
+      icon: <MessageOutline />,
     },
     {
-      key: 'PersonalCenter',
+      key: '/me',
       title: '个人中心',
       icon: <UserOutline />,
     },
   ]
+  return (
+    <TabBar activeKey={pathname} onChange={value => setRouteActive(value)} >
+      {
+        tabs.map(item => (
+          <TabBar.Item key={item.key} icon={item.icon} title={item.title} />
+        ))
+      }
+    </TabBar>
+  )
+}
 
-  const setRouteActive = (value) => {
-    history.pushState(value)
-  }
-
-  // const [activeKey, setActiveKey] = useState('todo')
-
+function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <Router initialEntries={['/home']}>
-          <Routes>
-            <Route exact path=':home' element={<Home />} >
-            </Route>
-            <Route exact path=':todo' element={<Todo />}>
-            </Route>
-            <Route exact path=':message' element={<Message />}>
-            </Route>
-            <Route exact path=':me' element={<PersonalCenter />}>
-            </Route>
-          </Routes>
-        </Router>
-        <TabBar activeKey={pathname} onChange={value => setRouteActive(value)}>
-          {tabs.map(item => (
-            <TabBar.Item key={item.key} icon={item.icon} title={item.title} />
-          ))}
-        </TabBar>
-        {/* <Router>
-          <ul className='navBar'>
-            <li>
-              <Link to="/move">Move</Link>
-            </li>
-            <li>
-              <Link to="/winner">Winner</Link>
-            </li>
-            <li>
-              <Link to="/buy">Buy</Link>
-            </li>
-          </ul>
-          <Routes>
-            <Route path="/move" element={<Move />}></Route>
-            <Route path="/winner" element={<Winner />}></Route>
-            <Route path="/buy" element={<Buy />}></Route>
-          </Routes>
-        </Router> */}
-      </header>
+      <Router initialEntries={['/home']}>
+        <NavBar>配合路由</NavBar>
+        <Routes>
+          <Route exact path=':home' element={<Home />} >
+            <Home />
+          </Route>
+          <Route exact path=':todo' element={<Todo />}>
+            <Todo />
+          </Route>
+          <Route exact path=':message' element={<Message />}>
+            <Message />
+          </Route>
+          <Route exact path=':me' element={<PersonalCenter />}>
+            <PersonalCenter />
+          </Route>
+        </Routes>
+        <div>
+          <Bottom />
+        </div>
+      </Router>
     </div>
   );
 }
