@@ -3,10 +3,10 @@ import React from 'react'
 // import Winner from './components/Winner'
 // import Buy from './components/Buy'
 
-// import Home from './views/Home'
-// import Message from './views/Message'
-// import PersonalCenter from './views/PersonalCenter'
-// import Todo from './views/Todo'
+import Home from './views/Home'
+import Message from './views/Message'
+import PersonalCenter from './views/PersonalCenter'
+import Todo from './views/Todo'
 
 // import { Route, BrowserRouter as Router, Routes, Link, useHistory, useLocation } from 'react-router-dom'
 // import { Route, BrowserRouter as Router, Routes, unstable_HistoryRouter as useHistory, useLocation } from 'react-router-dom'
@@ -47,7 +47,7 @@ const Bottom = () => {
       icon: <MessageOutline />,
     },
     {
-      key: '/me',
+      key: '/personalCenter',
       title: '个人中心',
       icon: <UserOutline />,
     },
@@ -63,42 +63,41 @@ const Bottom = () => {
   )
 }
 
-function Home() {
-  return <div>首页</div>
-}
-function Message() {
-  return <div>我的消息</div>
-}
-function PersonalCenter() {
-  return <div>个人中心</div>
-}
-function Todo() {
-  return <div>我的待办</div>
-}
+// function Home() {
+//   return <div>首页</div>
+// }
+// function Message() {
+//   return <div>我的消息</div>
+// }
+// function PersonalCenter() {
+//   return <div>个人中心</div>
+// }
+// function Todo() {
+//   return <div>我的待办</div>
+// }
 
 
 function App() {
   return (
     <div className="App">
+      
       <Router initialEntries={['/home']}>
         <NavBar>配合路由</NavBar>
         <Routes>
-          <Route exact path=':home' element={<Home />} >
-            <Home />
+          <Route exact path='/home' component={Home} >
+            {/* <Home /> */}
           </Route>
-          <Route exact path=':todo' element={<Todo />}>
-            <Todo />
+          <Route exact path='/todo' component={Todo}>
+            {/* <Todo /> */}
           </Route>
-          <Route exact path=':message' element={<Message />}>
-            <Message />
+          <Route exact path='/message' component={Message}>
+            {/* <Message /> */}
           </Route>
-          <Route exact path=':me' element={<PersonalCenter />}>
-            <PersonalCenter />
+          <Route exact path='/personalCenter' component={PersonalCenter}>
+            {/* <PersonalCenter /> */}
           </Route>
+          {/* <Bottom /> */}
         </Routes>
-        <div>
-          <Bottom />
-        </div>
       </Router>
     </div>
   );
